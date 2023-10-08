@@ -11,6 +11,7 @@ import 'package:kelompokmbl/provider/pastappoint.dart';
 import 'package:kelompokmbl/provider/step1prov.dart';
 import 'package:kelompokmbl/screen/aboutus_screen.dart';
 import 'package:kelompokmbl/screen/loginscreen.dart';
+import 'package:kelompokmbl/screen/navbarscreen.dart';
 import 'package:kelompokmbl/screen/welcomescreen.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.system,
-        home: const WelcomeScreen(),
+        home: const NavbarScreen(),
       ),
     );
   }
