@@ -73,11 +73,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               const BorderSide(width: 2, color: Colors.black),
                         ),
                         prefixIcon: const Icon(Icons.person),
-                        labelText: 'Name',
+                        labelText: 'Username',
                         labelStyle: GoogleFonts.lexendDeca()),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter your name";
+                      if (value != null && value.length < 8) {
+                        return "Enter at least 8 characters";
                       }
                       return null;
                     },
@@ -108,7 +108,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         prefixIcon: const Icon(Icons.email),
                         labelText: 'Email',
-                        hintText: 'jondoe@gmail.com',
+                        hintText: 'jessie@gmail.com',
                         labelStyle: GoogleFonts.lexendDeca()),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
