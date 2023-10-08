@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kelompokmbl/const.dart';
 import 'package:kelompokmbl/provider/faq_provider.dart';
+import 'package:kelompokmbl/provider/login_sharedpreferences.dart';
 import 'package:kelompokmbl/screen/bookappoint/bookappointmentstep1screen.dart';
 import 'package:kelompokmbl/screen/covid19screen.dart';
 import 'package:kelompokmbl/screen/listappointmentscreen.dart';
@@ -21,6 +22,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int selectIndex = 0;
+  String username = '';
   TextEditingController editingController = TextEditingController();
   final images = [
     'assets/img2.jpeg',
@@ -28,6 +31,25 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/img4.jpeg',
   ];
   List<FAQScreen> faqscreens = allFAQ;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserName();
+  }
+
+  _getUserName() async {
+    String? name = await LoginSharedPreferences.getUserNamePreference();
+    setState(() {
+      username = name!;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose;
+  }
+
   @override
   Widget build(BuildContext context) {
     // final prov = Provider.of<FAQScreen>(context);
@@ -57,7 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Align(
                       alignment: FractionalOffset.topLeft,
                       child: CircleAvatar(
-                        backgroundImage: ExactAssetImage('assets/profile.jpeg'),
+                        child: Icon(Icons.person),
+                        //backgroundImage: ExactAssetImage('assets/profile.jpeg'),
                         maxRadius: 36,
                       ),
                     ),
@@ -66,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                        children: <Widget>[
                           Text(
                             'Welcome, ',
                             style: GoogleFonts.montserrat(
@@ -78,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 6,
                           ),
                           Text(
-                            textProfileName,
+                            '$username',
                             style: GoogleFonts.rubik(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
