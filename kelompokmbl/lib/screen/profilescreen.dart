@@ -18,6 +18,21 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
+  int selectIndex = 0;
+  String username = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserName();
+  }
+
+  _getUserName() async {
+    String? name = await LoginSharedPreferences.getUserNamePreference();
+    setState(() {
+      username = name!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +84,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Align(
                       alignment: FractionalOffset.center,
                       child: CircleAvatar(
-                        backgroundImage: ExactAssetImage('assets/profile.jpeg'),
+                        child: Icon(Icons.person, size: 50.0),
+                        //backgroundImage: ExactAssetImage('assets/profile.jpeg'),
                         maxRadius: 45,
                       ),
                     ),
@@ -79,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 10,
                 ),
                 Text(
-                  textProfileName,
+                  '$username',
                   style: GoogleFonts.quicksand(
                       fontWeight: FontWeight.bold, fontSize: 15),
                 ),
