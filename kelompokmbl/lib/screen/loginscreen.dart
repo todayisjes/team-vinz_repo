@@ -3,10 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelompokmbl/provider/login_sharedpreferences.dart';
-import 'package:kelompokmbl/screen/homescreen.dart';
+import 'package:kelompokmbl/screen/navbarscreen.dart';
 import 'package:kelompokmbl/screen/registerscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:kelompokmbl/screen/navbarscreen.dart';
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
@@ -176,7 +175,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
       Navigator.pushAndRemoveUntil(
         context, 
         MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const NavbarScreen(),
         ), 
         (route) => false);
     }
