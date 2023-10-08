@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kelompokmbl/const.dart';
+import 'package:kelompokmbl/provider/login_sharedpreferences.dart';
 // import 'package:kelompokmbl/main.dart';
 import 'package:kelompokmbl/screen/aboutus_screen.dart';
 import 'package:kelompokmbl/screen/updateprofilescreen.dart';
+import 'package:kelompokmbl/screen/welcomescreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -135,7 +137,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: textLogoutDialog,
                   icon: Icons.logout_outlined,
                   onTap: () {
-                    Navigator.pop(context);
+                    _logOut();
+                    //Navigator.pop(context);
                   },
                   textColor: Colors.red.shade800,
                   endIcon: false,
@@ -146,6 +149,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  _logOut() async {
+    await LoginSharedPreferences.saveUserLogInPreference(false);
+    await LoginSharedPreferences.saveUserNamePreference('');
+
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+      context, 
+      MaterialPageRoute(
+        builder: (context) => const WelcomeScreen(),
+        ),
+      );
   }
 }
 
