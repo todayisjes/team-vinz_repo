@@ -76,8 +76,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         labelText: 'Username',
                         labelStyle: GoogleFonts.lexendDeca()),
                     validator: (value) {
-                      if (value != null && value.length < 8) {
-                        return "Enter at least 8 characters";
+                      if (value != null && value.length < 5) {
+                        return "Enter at least 5 characters";
                       }
                       return null;
                     },
