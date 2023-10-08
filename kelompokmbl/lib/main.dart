@@ -10,6 +10,7 @@ import 'package:kelompokmbl/provider/notif_provider.dart';
 import 'package:kelompokmbl/provider/pastappoint.dart';
 import 'package:kelompokmbl/provider/step1prov.dart';
 import 'package:kelompokmbl/screen/aboutus_screen.dart';
+import 'package:kelompokmbl/screen/loginscreen.dart';
 import 'package:kelompokmbl/screen/welcomescreen.dart';
 import 'package:provider/provider.dart';
 
