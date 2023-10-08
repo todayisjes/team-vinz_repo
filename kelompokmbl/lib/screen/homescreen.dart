@@ -46,15 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose;
-  }
-
-  @override
   Widget build(BuildContext context) {
     // final prov = Provider.of<FAQScreen>(context);
     return Scaffold(
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( 
         child: Padding(
           padding: EdgeInsets.all(15.0),
           child: Column(
