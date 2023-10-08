@@ -22,8 +22,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectIndex = 0;
-  String username = '';
   TextEditingController editingController = TextEditingController();
   final images = [
     'assets/img2.jpeg',
@@ -31,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/img4.jpeg',
   ];
   List<FAQScreen> faqscreens = allFAQ;
+  int selectIndex = 0;
+  String username = '';
 
   @override
   void initState() {
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Align(
                       alignment: FractionalOffset.topLeft,
                       child: CircleAvatar(
-                        child: Icon(Icons.person),
+                        child: Icon(Icons.person, size: 50.0),
                         //backgroundImage: ExactAssetImage('assets/profile.jpeg'),
                         maxRadius: 36,
                       ),
