@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "992672412762",
+    "project_id": "gumsmile-851c7",
+    "storage_bucket": "gumsmile-851c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992672412762:android:3588255acd8f592ed1d463",
+        "android_client_info": {
+          "package_name": "com.example.gumsmile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMEF5_lzHJ0VDD65FtV-P7t_a0JTsdhwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
