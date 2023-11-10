@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gumsmile/authentication.dart';
 import 'package:gumsmile/const.dart';
-import 'package:gumsmile/provider/login_sharedpreferences.dart';
+import 'package:gumsmile/provider/signup_sharedpreferences.dart';
 // import 'package:kelompokmbl/main.dart';
 import 'package:gumsmile/view/screen/updateprofilescreen.dart';
 import 'package:gumsmile/view/screen/welcomescreen.dart';
@@ -27,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _getUserName() async {
-    String? name = await LoginSharedPreferences.getUserNamePreference();
+    String? name = await SignupSharedPreferences.getUserNamePreference();
     setState(() {
       username = name!;
     });
@@ -146,7 +147,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   title: textLogoutDialog,
                   icon: Icons.logout_outlined,
                   onTap: () {
-                    _logOut();
+                    AuthenticationHelper().logOut().then((result) async {
+                      await SignupSharedPreferences.saveUserSignUpPreference(false);
+                      await SignupSharedPreferences.saveUserNamePreference('');
+
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen(),
+                        ),
+                      );
+                    });
                     //Navigator.pop(context);
                   },
                   textColor: Colors.red.shade800,
@@ -161,16 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _logOut() async {
-    await LoginSharedPreferences.saveUserLogInPreference(false);
-    await LoginSharedPreferences.saveUserNamePreference('');
-
-    // ignore: use_build_context_synchronously
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const WelcomeScreen(),
-      ),
-    );
+    
   }
 }
 
