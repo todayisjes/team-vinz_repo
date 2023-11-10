@@ -2,10 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gumsmile/provider/login_sharedpreferences.dart';
+import 'package:gumsmile/authentication.dart';
 import 'package:gumsmile/view/screen/navbarscreen.dart';
 import 'package:gumsmile/view/screen/registerscreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenLogin extends StatefulWidget {
   const ScreenLogin({super.key});
@@ -16,15 +15,15 @@ class ScreenLogin extends StatefulWidget {
 
 class _ScreenLoginState extends State<ScreenLogin> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  late SharedPreferences loginData;
-  late bool newUser;
+  String? email;
+  String? password;
 
   @override
   void dispose() {
-    _nameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -48,34 +47,42 @@ class _ScreenLoginState extends State<ScreenLogin> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    controller: _nameController,
+                    controller: _emailController,
                     decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(width: 2, color: Colors.black),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(width: 2, color: Colors.black),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(width: 2, color: Colors.black),
-                      ),
-                      prefixIcon: const Icon(Icons.person),
-                      labelText: 'Username',
-                      labelStyle: GoogleFonts.lexendDeca()
-                    ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              const BorderSide(width: 2, color: Colors.black),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              const BorderSide(width: 2, color: Colors.black),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide:
+                              const BorderSide(width: 2, color: Colors.black),
+                        ),
+                        prefixIcon: const Icon(Icons.email),
+                        labelText: 'Email',
+                        hintText: 'jessie@gmail.com',
+                        labelStyle: GoogleFonts.lexendDeca()),
                     validator: (value) {
-                      if (value != null && value.length < 5) {
-                        return "Enter at least 5 characters";
+                      if (value == null || value.isEmpty) {
+                        return "Please enter your email address";
+                      } else if (!value.contains("@") || !value.contains(".")) {
+                        return "Please enter a valid email address";
                       }
                       return null;
                     },
-                    keyboardType: TextInputType.name,
+                    onSaved: (val) {
+                      email = val;
+                    },
+                    keyboardType: TextInputType.emailAddress,
                     style: GoogleFonts.lexendDeca(),
                   ),
                 ),
@@ -111,6 +118,9 @@ class _ScreenLoginState extends State<ScreenLogin> {
                       }
                       return null;
                     },
+                    onSaved: (val) {
+                      password = val;
+                    },
                     keyboardType: TextInputType.visiblePassword,
                     style: GoogleFonts.lexendDeca(),
                   ),
@@ -122,7 +132,19 @@ class _ScreenLoginState extends State<ScreenLogin> {
                   height: 60,
                   child: ElevatedButton(
                     onPressed: () {
-                      _logIn();
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        AuthenticationHelper().logIn(
+                          email: email!, 
+                          password: password!
+                        ).then((result) {
+                          if (result == null) {
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavbarScreen()));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result, style: GoogleFonts.lexendDeca(fontSize: 16))));
+                          }
+                        });
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -162,22 +184,5 @@ class _ScreenLoginState extends State<ScreenLogin> {
         ),
       ),
     );
-  }
-
-  _logIn() async {
-    final isValidForm = _formKey.currentState!.validate();
-    String username = _nameController.text;
-
-    await LoginSharedPreferences.saveUserLogInPreference(true);
-    await LoginSharedPreferences.saveUserNamePreference(username);
-
-    if (isValidForm) {
-      Navigator.pushAndRemoveUntil(
-        context, 
-        MaterialPageRoute(
-          builder: (_) => const NavbarScreen(),
-        ), 
-        (route) => false);
-    }
   }
 }
