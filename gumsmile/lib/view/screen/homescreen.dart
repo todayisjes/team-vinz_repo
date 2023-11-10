@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gumsmile/const.dart';
 import 'package:gumsmile/provider/faq_provider.dart';
-import 'package:gumsmile/provider/login_sharedpreferences.dart';
+import 'package:gumsmile/provider/signup_sharedpreferences.dart';
 import 'package:gumsmile/view/screen/bookappoint/book_appointment_step1_screen.dart';
 import 'package:gumsmile/view/screen/covid19screen.dart';
 import 'package:gumsmile/view/screen/listappointmentscreen.dart';
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _getUserName() async {
-    String? name = await LoginSharedPreferences.getUserNamePreference();
+    String? name = await SignupSharedPreferences.getUserNamePreference();
     setState(() {
       username = name!;
     });
