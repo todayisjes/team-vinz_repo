@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gumsmile/authentication.dart';
+import 'package:gumsmile/provider/signup_sharedpreferences.dart';
 import 'package:gumsmile/view/screen/loginscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -11,11 +14,18 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  String? email;
+  String? password;
+  String? name;
+
+  bool agree = false;
+
+  late SharedPreferences signupData;
+  late bool newUser;
   @override
   void dispose() {
     _nameController.dispose();
@@ -81,6 +91,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                       return null;
                     },
+                    onSaved: (val) {
+                      name = val;
+                    },
                     keyboardType: TextInputType.name,
                     style: GoogleFonts.lexendDeca(),
                   ),
@@ -117,6 +130,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return "Please enter a valid email address";
                       }
                       return null;
+                    },
+                    onSaved: (val) {
+                      email = val;
                     },
                     keyboardType: TextInputType.emailAddress,
                     style: GoogleFonts.lexendDeca(),
@@ -155,6 +171,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return "Length of password's characters must be 8 or greater";
                       }
                       return null;
+                    },
+                    onSaved: (val) {
+                      password = val;
                     },
                     keyboardType: TextInputType.visiblePassword,
                     style: GoogleFonts.lexendDeca(),
@@ -199,6 +218,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: GoogleFonts.lexendDeca(),
                   ),
                 ),
+                Row(
+                  children: <Widget>[
+                    Checkbox(
+                      value: agree, 
+                      onChanged: (value) {
+                        setState(() {
+                          agree = !agree;
+                        });
+                      },
+                    ),
+                    const Flexible(
+                      child: Text("By creating account, I agree to terms & conditions and privacy policy"),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 15.0),
                 Container(
                   padding:
@@ -208,8 +242,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ScreenLogin()));
+                        _formKey.currentState!.save();
+                        String username = _nameController.text;
+                        AuthenticationHelper().signUp(email: email!, password: password!).then((result) {
+                          SignupSharedPreferences.saveUserSignUpPreference(true);
+                          SignupSharedPreferences.saveUserNamePreference(username);    
+                          if (result == null) {
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ScreenLogin()));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(result, style: GoogleFonts.lexendDeca(fontSize: 16),
+                              ),
+                            ));
+                          }
+                        });
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -251,4 +297,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  // _signUp() async {
+    // final isValidForm = _formKey.currentState!.validate();
+    // String username = _nameController.text;
+
+    // await SignupSharedPreferences.saveUserLogInPreference(true);
+    // await SignupSharedPreferences.saveUserNamePreference(username);
+
+    // if (isValidForm) {
+      // Navigator.pushAndRemoveUntil(
+        // context, 
+        // MaterialPageRoute(
+          // builder: (_) => const NavbarScreen(),
+        // ), 
+        // (route) => false);
+    // }
+  // }
 }
