@@ -9,9 +9,7 @@ class FAQScreen {
 }
 
 const allFAQ = [
-  FAQScreen(
-    title: "Apa saja pelayanan di GumSmile Dental Care",
-  ),
+  FAQScreen(title: "Apa saja pelayanan di GumSmile Dental Care"),
   FAQScreen(title: "Berapa lama perawatan Orthodontic berlangsung"),
   FAQScreen(title: "Apa saja efek samping dari penggunaan perawatan Orthodontic"),
   FAQScreen(title: "Apa kita harus membuat janji temu terlebih dahulu"),
