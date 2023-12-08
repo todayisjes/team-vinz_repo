@@ -1,13 +1,10 @@
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gumsmile/authentication.dart';
 import 'package:gumsmile/const.dart';
-import 'package:gumsmile/provider/signup_sharedpreferences.dart';
-// import 'package:kelompokmbl/main.dart';
+import 'package:gumsmile/provider/home_provider.dart';
+import 'package:gumsmile/service/firebase_service.dart';
 import 'package:gumsmile/view/screen/updateprofilescreen.dart';
-import 'package:gumsmile/view/screen/welcomescreen.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -19,19 +16,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
   int selectIndex = 0;
-  String username = '';
 
   @override
   void initState() {
     super.initState();
-    _getUserName();
-  }
-
-  _getUserName() async {
-    String? name = await SignupSharedPreferences.getUserNamePreference();
-    setState(() {
-      username = name!;
-    });
   }
 
   @override
@@ -41,11 +29,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -72,11 +60,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               children: [
                 Stack(
@@ -84,27 +72,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Align(
                       alignment: FractionalOffset.center,
                       child: CircleAvatar(
-                        child: Icon(
-                          Icons.person, 
-                          color: Colors.blueGrey[900],
-                          size: 50.0),
                         backgroundColor: Colors.black.withOpacity(
                             0.1,
                           ),
                         maxRadius: 45,
+                        child: Icon(
+                          Icons.person, 
+                          color: Colors.blueGrey[900],
+                          size: 50.0),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
-                  '$username',
-                  style: GoogleFonts.quicksand(
-                      fontWeight: FontWeight.bold, fontSize: 15),
+                Consumer<HomeProvider>(
+                  builder: (context, profileProv, _) {
+                    return Text(
+                      '${profileProv.username}', style: GoogleFonts.quicksand(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15
+                      ),
+                    );
+                  }
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -114,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: kPrimaryColor,
                         side: BorderSide.none,
-                        shape: StadiumBorder()),
+                        shape: const StadiumBorder()),
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -122,45 +115,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               builder: (context) =>
                                   const UpdateProfileScreen()));
                     },
-                    child: Text(
+                    child: const Text(
                       textEditProfile,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Divider(),
+                const Divider(),
 
                 // Menu
                 Profilesetting(title: menu1, icon: Icons.settings, onTap: () {}),
                 Profilesetting(title: menu2, icon: Icons.wallet, onTap: () {}),
                 Profilesetting(title: menu8,textColor: Colors.black,icon: Icons.question_mark,onTap: () {}),
-                Divider(
+                const Divider(
                   color: Colors.grey,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Profilesetting(
                   title: textLogoutDialog,
                   icon: Icons.logout_outlined,
-                  onTap: () {
-                    AuthenticationHelper().logOut().then((result) async {
-                      await SignupSharedPreferences.saveUserSignUpPreference(false);
-                      await SignupSharedPreferences.saveUserNamePreference('');
-
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen(),
-                        ),
-                      );
-                    });
-                    //Navigator.pop(context);
-                  },
+                  onTap: () => FirebaseService().logOut(context),
                   textColor: Colors.red.shade800,
                   endIcon: false,
                 )
@@ -170,10 +149,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
-  }
-
-  _logOut() async {
-    
   }
 }
 
@@ -223,7 +198,7 @@ class Profilesetting extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     color: aPrimaryColor.withOpacity(0.1)),
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_forward_ios_rounded,
                   size: 18.0,
                   color: bPrimaryColor,
