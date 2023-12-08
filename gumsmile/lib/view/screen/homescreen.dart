@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gumsmile/const.dart';
 import 'package:gumsmile/provider/faq_provider.dart';
-import 'package:gumsmile/provider/signup_sharedpreferences.dart';
+import 'package:gumsmile/provider/home_provider.dart';
 import 'package:gumsmile/view/screen/bookappoint/book_appointment_step1_screen.dart';
 import 'package:gumsmile/view/screen/covid19screen.dart';
 import 'package:gumsmile/view/screen/listappointmentscreen.dart';
@@ -11,8 +11,8 @@ import 'package:gumsmile/view/screen/medicalrecord.dart';
 import 'package:gumsmile/view/screen/notification_screen.dart';
 import 'package:gumsmile/view/screen/portalpasien.dart';
 import 'package:gumsmile/view/screen/promoscreen.dart';
-// import 'package:provider/provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,31 +23,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController editingController = TextEditingController();
-  final images = [
-    'assets/slider/img2.jpeg',
-    'assets/slider/img3.jpeg',
-    'assets/slider/img4.jpeg',
-  ];
   List<FAQScreen> faqscreens = allFAQ;
   int selectIndex = 0;
-  String username = '';
 
   @override
   void initState() {
     super.initState();
-    _getUserName();
-  }
-
-  _getUserName() async {
-    String? name = await SignupSharedPreferences.getUserNamePreference();
-    setState(() {
-      username = name!;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     // final prov = Provider.of<FAQScreen>(context);
+    final homeProv = Provider.of<HomeProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -62,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NotificationScreen()));
+                            builder: (context) => const NotificationScreen()));
                   },
                   icon: const Icon(Icons.notifications_none),
                 ),
@@ -74,15 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     Align(
                       alignment: FractionalOffset.topLeft,
                       child: CircleAvatar(
-                        child: Icon(
-                          Icons.person, 
-                          color: Colors.blueGrey[900],
-                          size: 50.0
-                        ),
                         backgroundColor: Colors.black.withOpacity(
-                            0.1,
-                          ),
+                          0.1,
+                        ),
                         maxRadius: 36,
+                        child: Icon(Icons.person,
+                            color: Colors.blueGrey[900], size: 50.0),
                       ),
                     ),
                     Padding(
@@ -98,11 +82,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 15,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 6,
                           ),
                           Text(
-                            '$username',
+                            '${homeProv.username}',
                             style: GoogleFonts.rubik(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -115,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               CarouselSlider.builder(
@@ -131,19 +115,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   // reverse: true,
                   pageSnapping: false,
                   enableInfiniteScroll: false,
-                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayInterval: const Duration(seconds: 3),
                   enlargeCenterPage: true,
                   // enlargeStrategy: CenterPageEnlargeStrategy.height,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Container(
                 height: 940,
                 width: MediaQuery.of(context).size.width,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: kPrimaryColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(36),
@@ -154,14 +138,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 20.0, top: 20.0),
+                        margin: const EdgeInsets.only(left: 20.0, top: 20.0),
                         child: Text(
                           'Booking and List',
                           style: GoogleFonts.kanit(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
@@ -180,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   width: 124,
                                   height: 113,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black12,
@@ -197,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   width: 124,
                                   height: 50,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.rectangle,
                                     borderRadius: BorderRadius.only(
@@ -206,12 +190,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        margin:
-                                            EdgeInsets.only(left: 8, top: 8),
+                                        margin: const EdgeInsets.only(
+                                            left: 8, top: 8),
                                         child: Text(
                                           menu3,
                                           style: GoogleFonts.quicksand(
@@ -219,11 +202,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
                                       Container(
-                                        margin: EdgeInsets.only(left: 8),
+                                        margin: const EdgeInsets.only(left: 8),
                                         child: Text(
                                           'free for first consultation',
                                           style: GoogleFonts.quicksand(
@@ -244,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ListAppointmentScreen()));
+                                          const ListAppointmentScreen()));
                             },
                             child: Column(
                               // crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   width: 124,
                                   height: 113,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black12,
@@ -269,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   width: 124,
                                   height: 50,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.rectangle,
                                     borderRadius: BorderRadius.only(
@@ -278,12 +261,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        margin:
-                                            EdgeInsets.only(left: 8, top: 8),
+                                        margin: const EdgeInsets.only(
+                                            left: 8, top: 8),
                                         child: Text(
                                           menu4,
                                           style: GoogleFonts.quicksand(
@@ -291,11 +273,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
                                       Container(
-                                        margin: EdgeInsets.only(left: 8),
+                                        margin: const EdgeInsets.only(left: 8),
                                         child: Text(
                                           'List your appointment',
                                           style: GoogleFonts.quicksand(
@@ -313,14 +295,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 20.0, top: 20.0),
+                        margin: const EdgeInsets.only(left: 20.0, top: 20.0),
                         child: Text(
                           'Feature and Form',
                           style: GoogleFonts.kanit(
                               fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Align(
@@ -336,10 +318,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PromoScreen()));
+                                      builder: (context) => const PromoScreen()));
                             },
-                            leading: Icon(Icons.discount_outlined),
+                            leading: const Icon(Icons.discount_outlined),
                             minLeadingWidth: 10,
                             title: Text(
                               "LOOK WHAT'S PROMO IN HERE",
@@ -351,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -370,7 +351,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   width: 69,
                                   height: 60,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(20.0),
                                     ),
@@ -387,14 +368,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     // fit: BoxFit.fill,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   menu5,
                                   style: GoogleFonts.roboto(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 11, fontWeight: FontWeight.w500),
                                 )
                               ],
                             ),
@@ -404,14 +384,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PortalPasien()));
+                                      builder: (context) =>
+                                          const PortalPasien()));
                             },
                             child: Column(
                               children: [
                                 Container(
                                   width: 69,
                                   height: 60,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(20.0),
                                     ),
@@ -428,14 +409,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     // fit: BoxFit.fill,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   menu6,
                                   style: GoogleFonts.roboto(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 11, fontWeight: FontWeight.w500),
                                 )
                               ],
                             ),
@@ -453,7 +433,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   width: 69,
                                   height: 60,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(20.0),
                                     ),
@@ -470,14 +450,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     // fit: BoxFit.fill,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   menu7,
                                   style: GoogleFonts.roboto(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 11, fontWeight: FontWeight.w500),
                                 )
                               ],
                             ),
@@ -497,20 +476,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
                         alignment: Alignment.center,
-                        margin: EdgeInsets.symmetric(horizontal: 10.0),
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         height: 44,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                offset: Offset(0, 10),
+                                offset: const Offset(0, 10),
                                 blurRadius: 50,
                                 color: kPrimaryColor.withOpacity(0.23),
                               )
@@ -525,14 +504,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
-                              icon: Icon(Icons.search)),
+                              icon: const Icon(Icons.search)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           left: 15,
                           right: 15,
                         ),
@@ -544,7 +523,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         color: Colors.white,
                                         boxShadow: [
                                           BoxShadow(
@@ -577,7 +556,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   )
                                 ],
@@ -601,7 +580,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                     ],
@@ -611,8 +590,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-    );
+    ));
   }
 
   Widget buildImage(image, index) => Container(
