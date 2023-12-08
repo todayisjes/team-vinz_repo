@@ -14,11 +14,11 @@ class _NavbarScreenState extends State<NavbarScreen> {
   int _selectedIndex = 1;
   final _screens = [
     // Message
-    MessageScreen(),
+    const MessageScreen(),
     // Homescreen
-    HomeScreen(),
+    const HomeScreen(),
     // Profile
-    ProfileScreen()
+    const ProfileScreen()
   ];
 
   @override
@@ -31,9 +31,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
         child: BottomNavigationBar(
           backgroundColor: Colors.white,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color(0xFF26C6DA),
+          selectedItemColor: const Color(0xFF26C6DA),
           unselectedItemColor: Colors.black26,
-          selectedLabelStyle: TextStyle(
+          selectedLabelStyle: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 13,
           ),
@@ -43,12 +43,19 @@ class _NavbarScreenState extends State<NavbarScreen> {
               _selectedIndex = index;
             });
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.chat_rounded), label: 'Messages'),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              icon: Icon(Icons.chat_rounded), 
+              label: 'Messages'
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle), label: 'Profile'),
+              icon: Icon(Icons.home), 
+              label: 'Home'
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle), 
+              label: 'Profile'
+            ),
           ],
         ),
       ),
