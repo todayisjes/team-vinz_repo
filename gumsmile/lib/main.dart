@@ -1,16 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:gumsmile/const.dart';
+import 'package:gumsmile/provider/auth.dart';
 import 'package:gumsmile/provider/book_apointment_provider.dart';
 import 'package:gumsmile/provider/doctor_provider.dart';
-//import 'package:gumsmile/provider/faq_provider.dart';
+import 'package:gumsmile/provider/home_provider.dart';
 import 'package:gumsmile/provider/listappointment_provider.dart';
+import 'package:gumsmile/provider/login_provider.dart';
 import 'package:gumsmile/provider/medicalrecord_provider.dart';
 import 'package:gumsmile/provider/messageprov.dart';
 import 'package:gumsmile/provider/notif_provider.dart';
 import 'package:gumsmile/provider/past_provider.dart';
-import 'package:gumsmile/view/screen/navbarscreen.dart';
+import 'package:gumsmile/provider/register_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DoctorProvider()),
         ChangeNotifierProvider(create: (_) => ListAppointmentsProvider()),
         ChangeNotifierProvider(create: (_) => PastProvider()),
+        ChangeNotifierProvider(create: (_) => RegisterProvider()),
+        ChangeNotifierProvider(create: (_) => LoginProvider()),
+        ChangeNotifierProvider(create: (_) => HomeProvider()),
         ChangeNotifierProvider(create: (_) => BookAppointmentProvider()),
         ChangeNotifierProvider(create: (_) => MedicalProvider()),
         // ChangeNotifierProvider(create: (_) => FAQScreen()),
@@ -69,7 +73,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        home: const NavbarScreen(),
+        home: AuthLogin(),
       ),
     );
   }
