@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gumsmile/const.dart';
+import 'package:gumsmile/provider/build_image.dart';
 import 'package:gumsmile/provider/faq_provider.dart';
 import 'package:gumsmile/provider/home_provider.dart';
 import 'package:gumsmile/view/screen/bookappoint/book_appointment_step1_screen.dart';
@@ -24,7 +25,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController editingController = TextEditingController();
   List<FAQScreen> faqscreens = allFAQ;
-  int selectIndex = 0;
 
   @override
   void initState() {
@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
               CarouselSlider.builder(
                 itemCount: images.length,
                 itemBuilder: (context, index, realIndex) {
-                  final image = images[index];
+                  final image = homeProv.images[index];
                   return buildImage(image, index);
                 },
                 options: CarouselOptions(
@@ -592,16 +592,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
     ));
   }
-
-  Widget buildImage(image, index) => Container(
-        // margin: EdgeInsets.symmetric(horizontal: 24),
-        width: 500,
-        color: Colors.grey,
-        child: Image.asset(
-          image,
-          fit: BoxFit.cover,
-        ),
-      );
 
   void searchFAQ(String query) {
     final suggestions = allFAQ.where((item) {
