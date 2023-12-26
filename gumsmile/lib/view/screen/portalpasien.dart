@@ -72,7 +72,7 @@ class _PortalPasienState extends State<PortalPasien> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                margin: EdgeInsets.only(right: 20),
+                                margin: EdgeInsets.only(top: 10, right: 20),
                                 width: 70,
                                 height: 70,
                                 decoration: BoxDecoration(
@@ -85,7 +85,7 @@ class _PortalPasienState extends State<PortalPasien> {
                               ),
                               Expanded(
                                 child: Container(
-                                  height: 60,
+                                  height: 90,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -104,7 +104,7 @@ class _PortalPasienState extends State<PortalPasien> {
                                       Text(
                                         '${result['workDays']}',
                                         style: TextStyle(
-                                          color: Colors.grey,
+                                          color: Colors.black54,
                                         ),
                                       ),
                                     ],
@@ -112,7 +112,7 @@ class _PortalPasienState extends State<PortalPasien> {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(right: 20),
+                                margin: EdgeInsets.only(top: 10, right: 20),
                                 height: 70,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +120,7 @@ class _PortalPasienState extends State<PortalPasien> {
                                   children: [
                                     Icon(
                                       Icons.chat_rounded,
-                                      color: Colors.grey,
+                                      color: Colors.black87,
                                       size: 18,
                                     ),
                                     SizedBox(
@@ -128,7 +128,7 @@ class _PortalPasienState extends State<PortalPasien> {
                                     ),
                                     Icon(
                                       Icons.video_call,
-                                      color: Colors.grey,
+                                      color: Colors.black87,
                                       size: 18,
                                     ),
                                   ],
