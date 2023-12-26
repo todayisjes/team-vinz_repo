@@ -10,7 +10,7 @@ class PromoScreen extends StatelessWidget {
     return Scaffold(
       // backgroundColor: kPrimaryColor,
       appBar: AppBar(
-        title: Text("Code Promo"),
+        title: const Text("Code Promo"),
         centerTitle: true,
         backgroundColor: kPrimaryColor,
       ),
@@ -37,17 +37,17 @@ class PromoScreen extends StatelessWidget {
             PromoMenu(
                 price: "Rp. 250.000",
                 text: "for Prophylaxis Treatment",
-                exp: "Exp. 15-06-2023",
+                exp: "Exp. 03-01-2024",
                 onTap: () {}),
             PromoMenu(
                 price: "Rp. 200.000",
                 text: "for Whitening Treatment",
-                exp: "Exp. 15-06-2023",
+                exp: "Exp. 03-01-2024",
                 onTap: () {}),
             PromoMenu(
                 price: "Rp. 250.000",
                 text: "for Orthodentics Treatment Brace 1",
-                exp: "Exp. 15-06-2023",
+                exp: "Exp. 03-01-2024",
                 onTap: () {}),
           ],
         ),
@@ -75,7 +75,7 @@ class PromoMenu extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Container(
-        height: 155,
+        height: 163,
         width: 500,
         margin: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
