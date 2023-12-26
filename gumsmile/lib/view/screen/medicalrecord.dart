@@ -133,7 +133,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
                                     padding: EdgeInsets.only(
                                       right: 10,
                                     ),
-                                    width: 140,
+                                    width: 150,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: kPrimaryColor,
@@ -152,7 +152,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
                                             color: Colors.black45,
                                           ),
                                           SizedBox(
-                                            width: 8,
+                                            width: 5,
                                           ),
                                           Text(
                                             'Download',
