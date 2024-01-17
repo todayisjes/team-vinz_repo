@@ -41,10 +41,8 @@ class Constant {
     },
   ];
   Color colorBar = const Color.fromRGBO(210, 227, 200, 1);
-  Color colorButton = const Color.fromRGBO(178, 200, 186, 1);
-  Color itemSelect = const Color.fromRGBO(178, 200, 186, 1);
-  Color colorPage = const Color.fromRGBO(235, 243, 232, 1);
-  Color colorIcon = const Color.fromRGBO(134, 167, 137, 1);
+  Color colorButton = Color.fromARGB(255, 141, 205, 209);
+  Color itemSelect = Color.fromARGB(255, 154, 212, 216);
 
   TextStyle textAppBar = GoogleFonts.poppins(
     fontSize: 14.0,
