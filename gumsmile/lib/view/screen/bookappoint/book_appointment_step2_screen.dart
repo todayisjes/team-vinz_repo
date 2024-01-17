@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gumsmile/const.dart';
 import 'package:gumsmile/data/data.dart';
 import 'package:gumsmile/model/appointment_model.dart';
@@ -128,8 +129,8 @@ class Step2Screen extends StatelessWidget {
                   ),
                   TableCalendar(
                     focusedDay: bookProv.focusDay,
-                    firstDay: DateTime.utc(2023, 1, 1),
-                    lastDay: DateTime.utc(2024, 1, 1),
+                    firstDay: DateTime.utc(2024, 1, 1),
+                    lastDay: DateTime.utc(2029, 1, 1),
                     calendarFormat: CalendarFormat.month,
                     locale: 'en_US',
                     availableCalendarFormats: const {
@@ -261,7 +262,7 @@ class Step2Screen extends StatelessWidget {
                           rethrow;
                         }
                       },
-                      child: const Text('Save'),
+                      child: Text('Save', style: GoogleFonts.lexendDeca(fontSize: 14, fontWeight: FontWeight.w700, color: const Color(0xFF454545))),
                     ),
                   ),
                 ],
