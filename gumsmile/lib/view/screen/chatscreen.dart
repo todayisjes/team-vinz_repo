@@ -27,7 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 CircleAvatar(
                   radius: 25,
-                  backgroundImage: ExactAssetImage('assets/doctorimg3.jpeg'),
+                  backgroundImage: ExactAssetImage('assets/dokter/doctorimg3.jpeg'),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
