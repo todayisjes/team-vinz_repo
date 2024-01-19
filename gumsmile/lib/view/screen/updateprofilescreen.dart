@@ -26,17 +26,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     });
   }
 
-// Future openCamera() async {
-//   final pickedImage =
-//       await ImagePicker().pickImage(source: ImageSource.camera);
-//   image = File(pickedImage!.path);
-// }
-
-// Future openGallery() async {
-//   final imageGallery =
-//       await ImagePicker().pickImage(source: ImageSource.gallery);
-//   image = File(imageGallery!.path);
-// }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,7 +160,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             shape: StadiumBorder()),
                         onPressed: () {},
                         child: Text(
-                          "Saved",
+                          "Save",
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
